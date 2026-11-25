@@ -1,0 +1,21 @@
+# Derleme ciktilari (depo "make clean" yapilmis halde tutulur)
+*.o
+*.exe
+bin/*
+!bin/.gitkeep
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# NBIS kaynak kodu (kurulum adimlari README'de)
+Rel_5.0.0/
+
+# Odev metninin ekran goruntuleri
+/[1-4].png
+
+# Gecici test dosyalari
+result.bmp
+your_result.bmp
+*.raw

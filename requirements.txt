@@ -1,0 +1,6 @@
+tensorflow==2.21.0
+keras==3.15.1
+opencv-contrib-python==5.1.0.95
+scipy==1.18.1
+pyfing==0.7.3
+matplotlib==3.11.2

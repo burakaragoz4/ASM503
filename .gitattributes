@@ -1,0 +1,8 @@
+# Metin dosyalari her platformda LF satir sonuyla (makefile'lar MSYS2 make icin)
+* text=auto eol=lf
+
+# Ikili dosyalar
+*.png  binary
+*.bmp  binary
+*.an2k binary
+*.mdt  binary
