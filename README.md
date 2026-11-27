@@ -322,13 +322,13 @@ FVC2002 DB1 üzerinde yapılan ek deneyler:
 
 | Ödev maddesi | Dosya(lar) |
 |---|---|
-| NBIS kurulumu | `images/nbis_install.png` |
-| pyfing kurulumu | `images/pyfing_install.png`, `scripts/pyfing_example.py` |
-| tiff2raw, raw2bmp | `src/tiff2raw/`, `src/raw2bmp/`, `images/raw_tools.png`, `images/101_1.bmp` |
-| raw2an2k | `src/raw2an2k/`, `images/an2k-mindtct.png`, `images/mindtct_results/`, `images/101_1.an2k` |
-| comp_img | `src/comp_img/`, `images/comp_img.png`, `scripts/perturb_bmp.py` |
-| segmentation, orientation, frequency, gabor_filter | `src/<araç>/`, `src/common/`, `images/segmentation.png`, `images/orientation.png`, `images/frequency.png`, `images/gabor_filter.png` |
-| match.py ve 6 skor dosyası | `scripts/match.py`, `scores/` |
-| det.py ve 3 DET eğrisi | `scripts/det.py`, `images/FVC2000DB1_det.png`, `images/FVC2002DB1_det.png`, `images/FVC2004DB1_det.png` |
+| NBIS kurulumu | [nbis_install.png](images/nbis_install.png) |
+| pyfing kurulumu | [pyfing_install.png](images/pyfing_install.png), [pyfing_example.py](scripts/pyfing_example.py) |
+| tiff2raw, raw2bmp | [src/tiff2raw/](src/tiff2raw/), [src/raw2bmp/](src/raw2bmp/), [raw_tools.png](images/raw_tools.png), [101_1.bmp](images/101_1.bmp) |
+| raw2an2k | [src/raw2an2k/](src/raw2an2k/), [an2k-mindtct.png](images/an2k-mindtct.png), [mindtct_results/](images/mindtct_results/), [101_1.an2k](images/101_1.an2k) |
+| comp_img | [src/comp_img/](src/comp_img/), [comp_img.png](images/comp_img.png), [perturb_bmp.py](scripts/perturb_bmp.py) |
+| segmentation, orientation, frequency, gabor_filter | [src/segmentation/](src/segmentation/), [src/orientation/](src/orientation/), [src/frequency/](src/frequency/), [src/gabor_filter/](src/gabor_filter/), [src/common/](src/common/), [segmentation.png](images/segmentation.png), [orientation.png](images/orientation.png), [frequency.png](images/frequency.png), [gabor_filter.png](images/gabor_filter.png) |
+| match.py ve 6 skor dosyası | [match.py](scripts/match.py); FVC2000 DB1 [genuine](scores/FVC2000DB1_genuine_scores.txt) / [impostor](scores/FVC2000DB1_impostor_scores.txt), FVC2002 DB1 [genuine](scores/FVC2002DB1_genuine_scores.txt) / [impostor](scores/FVC2002DB1_impostor_scores.txt), FVC2004 DB1 [genuine](scores/FVC2004DB1_genuine_scores.txt) / [impostor](scores/FVC2004DB1_impostor_scores.txt) |
+| det.py ve 3 DET eğrisi | [det.py](scripts/det.py), [FVC2000DB1_det.png](images/FVC2000DB1_det.png), [FVC2002DB1_det.png](images/FVC2002DB1_det.png), [FVC2004DB1_det.png](images/FVC2004DB1_det.png) |
 
 Depo, `make clean` yapılmış haldedir: derleme çıktıları (`.o`, `.exe`) içermez. FVC veri tabanları ve gabor çıktıları depoya dahil değildir.
