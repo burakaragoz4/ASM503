@@ -1,15 +1,10 @@
-"""8-bit BMP dosyasinin bazi piksellerini 1 artirip/azaltarak kopyasini yazar.
-
-comp_img aracini test etmek icindir: N piksel degistirilirse comp_img
-"Total difference: N" ve "Maximum difference: 1" vermelidir.
-
+"""
 Kullanim:
     python scripts/perturb_bmp.py <girdi.bmp> <cikti.bmp> [piksel_sayisi]
 """
 import random
 import struct
 import sys
-
 
 def main():
     if len(sys.argv) not in (3, 4):
@@ -25,9 +20,8 @@ def main():
     height = abs(height)
     stride = (width + 3) & ~3
 
-    # Padding byte'lari haric gercek piksel adresleri
     positions = [offset + y * stride + x for y in range(height) for x in range(width)]
-    rng = random.Random(503)  # sabit tohum: her calistirmada ayni pikseller
+    rng = random.Random(503) 
     for pos in rng.sample(positions, count):
         if data[pos] == 255:
             data[pos] -= 1

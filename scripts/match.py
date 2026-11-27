@@ -1,21 +1,4 @@
-"""FVC protokolune gore genuine ve impostor eslestirme skorlarini hesaplar.
-
-Parmak izi tanima sistemi:
-    tiff2raw -> segmentation -> orientation -> frequency -> gabor_filter
-    -> (ters cevirme) -> raw2an2k -> mindtct (minutiae, .xyt) -> bozorth3 (skor)
-
-FVC protokolu (her veri tabaninin A kumesi: 100 parmak x 8 ornek):
-    genuine : ayni parmagin ornekleri birbiriyle, simetrikler haric
-              (100 x 8*7/2 = 2800 karsilastirma)
-    impostor: farkli parmaklarin ilk ornekleri birbiriyle, simetrikler haric
-              (100*99/2 = 4950 karsilastirma)
-
-Cikti: <out>/FVC200XDB1_genuine_scores.txt ve FVC200XDB1_impostor_scores.txt
-       Her satir: <sablon> <sorgu> <skor>
-
-Ara dosyalar (gabor ciktisi .bmp ve minutiae .xyt) calisma dizininin disinda,
---work dizininde tutulur; daha once islenmis goruntuler tekrar islenmez.
-
+"""
 Kullanim (ASM503 dizininden):
     python scripts/match.py                     # uc veri tabaninin hepsi
     python scripts/match.py FVC2002DB1          # yalnizca biri
@@ -35,7 +18,6 @@ from itertools import combinations
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXE = '.exe' if os.name == 'nt' else ''
 
-# Veri tabani adi -> FVC dizini altindaki A kumesi
 DATABASES = {
     'FVC2000DB1': ('FVC2000', 'Db1_a'),
     'FVC2002DB1': ('FVC2002', 'Db1_a'),
@@ -44,8 +26,6 @@ DATABASES = {
 FINGERS = 100
 IMPRESSIONS = 8
 
-# gabor_filter siyah zemin uzerinde beyaz sirt uretir; mindtct klasik
-# parmak izi (beyaz zemin, siyah sirt) bekledigi icin goruntu ters cevrilir.
 INVERT_TABLE = bytes(255 - i for i in range(256))
 
 

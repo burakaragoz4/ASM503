@@ -1,16 +1,4 @@
-"""Genuine/impostor skor dosyalarindan DET egrisi cizer ve EER hesaplar.
-
-Esik t icin (skor >= t ise "ayni parmak" kabul edilir):
-    FAR(t) = esigi gecen impostor skoru orani   (False Accept Rate)
-    FRR(t) = esigin altinda kalan genuine orani (False Reject Rate)
-DET egrisi FAR'a karsi FRR'nin degisimidir (iki eksen de logaritmik).
-
-EER, FVC'nin tanimiyla hesaplanir (Maio vd., FVC2000):
-    t1 = max{t | FRR(t) <= FAR(t)},  t2 = min{t | FRR(t) >= FAR(t)}
-    [EER_alt, EER_ust] = FRR(t1)+FAR(t1) <= FRR(t2)+FAR(t2) ise [FRR(t1), FAR(t1)],
-                         degilse [FAR(t2), FRR(t2)]
-    EER = (EER_alt + EER_ust) / 2
-
+"""
 Kullanim (ASM503 dizininden):
     python scripts/det.py                  # uc veri tabaninin hepsi
     python scripts/det.py FVC2002DB1       # yalnizca biri
@@ -21,15 +9,12 @@ Cikti : images/<DB>_det.png
 import argparse
 import os
 import sys
-
 import matplotlib
-matplotlib.use('Agg')                  # ekran gerektirmeyen arka uc
-import matplotlib.pyplot as plt        # noqa: E402
-import numpy as np                     # noqa: E402
-
+matplotlib.use('Agg')                  
+import matplotlib.pyplot as plt        
+import numpy as np                     
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATABASES = ('FVC2000DB1', 'FVC2002DB1', 'FVC2004DB1')
-
 
 def read_scores(path):
     if not os.path.exists(path):
@@ -40,18 +25,14 @@ def read_scores(path):
         sys.exit(f'Skor dosyasi bos: {path}')
     return np.array(scores)
 
-
 def far_frr(genuine, impostor):
-    """Tum esik degerleri icin FAR ve FRR (oran, 0..1)."""
     thresholds = np.unique(np.concatenate([genuine, impostor, [genuine.max() + 1, impostor.max() + 1]]))
     g, i = np.sort(genuine), np.sort(impostor)
-    frr = np.searchsorted(g, thresholds, side='left') / g.size           # skor < t
-    far = 1 - np.searchsorted(i, thresholds, side='left') / i.size       # skor >= t
+    frr = np.searchsorted(g, thresholds, side='left') / g.size          
+    far = 1 - np.searchsorted(i, thresholds, side='left') / i.size       
     return thresholds, far, frr
 
-
 def fvc_eer(thresholds, far, frr):
-    """FVC tanimiyla EER, aralik siniri ve ilgili esik."""
     i1 = np.nonzero(frr <= far)[0].max()
     i2 = np.nonzero(frr >= far)[0].min()
     if frr[i1] + far[i1] <= frr[i2] + far[i2]:
@@ -65,7 +46,6 @@ def plot_det(db, genuine, impostor, out_path):
     thresholds, far, frr = far_frr(genuine, impostor)
     eer, low, high, t = fvc_eer(thresholds, far, frr)
 
-    # log eksende 0 gosterilemez: en kucuk olculebilir oranin yarisina kirp
     floor = 0.5 / max(genuine.size, impostor.size)
     x, y = np.maximum(far, floor) * 100, np.maximum(frr, floor) * 100
 
@@ -75,7 +55,7 @@ def plot_det(db, genuine, impostor, out_path):
     ax.plot(lim, lim, ls='--', color='gray', lw=1, label='FAR = FRR')
     ax.plot(eer * 100, eer * 100, 'o', color='#c0392b', ms=9, zorder=5,
             label=f'EER = {eer * 100:.2f}% (eşik = {t:g})')
-    # DET egrisinin alti bos oldugundan etiket noktanin sol altina konur
+    
     ax.annotate(f'EER = {eer * 100:.2f}%', (eer * 100, eer * 100), xytext=(-16, -30),
                 textcoords='offset points', ha='right', color='#c0392b', fontsize=12, fontweight='bold',
                 bbox=dict(boxstyle='round', fc='white', ec='#c0392b'),
@@ -115,7 +95,6 @@ def main():
         eer, low, high, t = plot_det(db, genuine, impostor, out_path)
         print(f'{db}: EER = {eer * 100:.2f}%  [{low * 100:.2f}%, {high * 100:.2f}%], esik = {t:g}'
               f'  -> {os.path.relpath(out_path, ROOT)}')
-
 
 if __name__ == '__main__':
     main()
